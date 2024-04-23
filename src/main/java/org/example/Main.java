@@ -5,31 +5,25 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for(int i = 0; i < n; i++) {
-            int l = sc.nextInt();
-            list.add(l);
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        String[] numbers = input.split(" ");
+        ArrayList<Integer> sequence = new ArrayList<>();
+        for (String num : numbers) {
+            sequence.add(Integer.parseInt(num));
         }
-        int Q = sc.nextInt();
-        sc.nextLine();
-        for (int i = 0; i< Q; i++) {
-            String operation = sc.nextLine();
-            if(operation.equals("Insert")) {
-                int x = sc.nextInt();
-                int value = sc.nextInt();
-                list.add(x, value);
-                sc.nextLine();
-            }
-            else if(operation.equals("Delete")) {
-                int x = sc.nextInt();
-                list.remove(x);
-                sc.nextLine();
-            }
+        reverseSequence(sequence, 0, sequence.size() - 1);
+        for (int i = 0; i < sequence.size(); i++) {
+            System.out.print(sequence.get(i) + " ");
         }
-        System.out.println(list);
     }
-
-
+    public static void reverseSequence(ArrayList<Integer> sequence, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        int temp = sequence.get(start);
+        sequence.set(start, sequence.get(end));
+        sequence.set(end, temp);
+        reverseSequence(sequence, start + 1, end - 1);
+    }
 }
