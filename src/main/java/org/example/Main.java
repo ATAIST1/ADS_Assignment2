@@ -1,34 +1,26 @@
 package org.example;
-
-import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
 
-        int[] sequence = new int[2 * N];
-        int left = N - 1, right = N;
-
-        for (int i = 0; i < N; i++) {
-            int operation = scanner.nextInt();
-
-            if (operation == 1 || operation == 2){
-                int disk = scanner.nextInt();
-                if (operation == 1) {
-                    sequence[left--] = disk;
-                } else {
-                    sequence[right++] = disk;
-                }
+    public static int unableToEat(int[] students, int[] samsas) {
+        int unableToEatCount = 0;
+        int currentStudentIndex = 0;
+        for (int samsa : samsas) {
+            if (currentStudentIndex >= students.length) {
+                break;
             }
-            else{
-                if (operation == 3) {
-                    System.out.print(sequence[++left] + " ");
-                }
-                else {
-                    System.out.print(sequence[--right] + " ");
-                }
+            int studentPreference = students[currentStudentIndex];
+            if (studentPreference == samsa) {
+                currentStudentIndex++;
+            } else {
+                unableToEatCount++;
             }
         }
+        return unableToEatCount;
+    }
+
+    public static void main(String[] args) {
+        int[] students = {1, 1, 0, 0};
+        int[] samsas = {0, 1, 0, 1};
+        System.out.println(unableToEat(students, samsas));
     }
 }
